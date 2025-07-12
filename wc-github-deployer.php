@@ -78,26 +78,26 @@ function wc_github_deployer_options_page()
     echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Plugin data reset successfully!', 'wc-github-deployer') . '</p></div>';
   }
 ?>
-  <div class="wrap">
-    <h1><?php _e('GitHub Deploy Settings', 'wc-github-deployer'); ?></h1>
+ <div class="wrap">
+    <h1><?php esc_html_e('GitHub Deploy Settings', 'wc-github-deployer'); ?></h1>
     <form method="post" action="options.php">
       <?php settings_fields('wc_github_deployer_options'); ?>
       <?php do_settings_sections('wc_github_deployer_options'); ?>
       <table class="form-table">
         <tr valign="top">
-          <th scope="row"><?php _e('GitHub Token (stored securely)', 'wc-github-deployer'); ?></th>
+          <th scope="row"><?php esc_html_e('GitHub Token (stored securely)', 'wc-github-deployer'); ?></th>
           <td><input type="password" name="wc_github_deployer_token" value="<?php echo esc_attr(get_option('wc_github_deployer_token')); ?>" size="50" /></td>
         </tr>
         <tr valign="top">
-          <th scope="row"><?php _e('Repository (user/repo)', 'wc-github-deployer'); ?></th>
+          <th scope="row"><?php esc_html_e('Repository (user/repo)', 'wc-github-deployer'); ?></th>
           <td><input type="text" name="wc_github_deployer_repo" value="<?php echo esc_attr(get_option('wc_github_deployer_repo')); ?>" size="50" /></td>
         </tr>
         <tr valign="top">
-          <th scope="row"><?php _e('Workflow filename (.yml)', 'wc-github-deployer'); ?></th>
+          <th scope="row"><?php esc_html_e('Workflow filename (.yml)', 'wc-github-deployer'); ?></th>
           <td><input type="text" name="wc_github_deployer_workflow" value="<?php echo esc_attr(get_option('wc_github_deployer_workflow')); ?>" size="50" /></td>
         </tr>
         <tr valign="top">
-          <th scope="row"><?php _e('Branch (ref)', 'wc-github-deployer'); ?></th>
+          <th scope="row"><?php esc_html_e('Branch (ref)', 'wc-github-deployer'); ?></th>
           <td><input type="text" name="wc_github_deployer_ref" value="<?php echo esc_attr(get_option('wc_github_deployer_ref')); ?>" size="50" /></td>
         </tr>
       </table>
@@ -146,9 +146,13 @@ function wc_github_deployer_do_deploy()
   $response = wp_remote_post($url, $args);
 
   if (is_wp_error($response)) {
-    error_log('GitHub deploy error: ' . $response->get_error_message());
+    if (defined('WP_DEBUG') && WP_DEBUG) {
+      error_log('GitHub deploy error: ' . $response->get_error_message());
+    }
   } else {
-    error_log('GitHub deploy triggered successfully!');
+    if (defined('WP_DEBUG') && WP_DEBUG) {
+      error_log('GitHub deploy triggered successfully!');
+    }
   }
 }
 

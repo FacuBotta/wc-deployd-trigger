@@ -1,11 +1,13 @@
-=== GitHub Deploy Trigger ===
+=== Deploy Trigger for GitHub ===
 Contributors: facudev
-Tags: github, deploy, workflow, woocommerce, headless, actions
+Tags: deploy, workflow, headless, actions, github
 Requires at least: 5.0
-Tested up to: 6.5
-Stable tag: 1.2
+Tested up to: 6.8
+Stable tag: 1.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
+
+Trigger GitHub Actions workflows from WordPress when content changes. Perfect for headless WordPress setups.
 
 == Description ==
 
@@ -36,6 +38,10 @@ Yes, it works with any post type.
 
 == Changelog ==
 
+= 1.3 =
+* Improved error handling and logging
+* Updated documentation
+
 = 1.2 =
 * Added reset button to clear plugin data
 * Improved code structure and security
@@ -48,5 +54,5 @@ Yes, it works with any post type.
 
 == Upgrade Notice ==
 
-= 1.2 =
-Recommended update for improved security and reset functionality. 
+= 1.3 =
+Recommended update from plugin check before submit the plugin on WordPress.org.
