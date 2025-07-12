@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Plugin Name: GitHub Deploy Trigger
+ * Plugin Name: Deploy Trigger for GitHub
  * Description: Trigger GitHub Actions workflow from WordPress when a post is saved or deleted.
- * Version: 1.2
+ * Version: 1.3
  * Author: facudev
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -114,6 +114,28 @@ function wc_github_deployer_options_page()
 }
 
 /**
+ * Optional debug logging (only active when WP_DEBUG is enabled)
+ */
+function wc_github_deployer_debug_logging() {
+  if (defined('WP_DEBUG') && WP_DEBUG) {
+    add_action('wc_github_deployer_error', function($message) {
+      // Use wp_debug_log instead of error_log
+      if (function_exists('wp_debug_log')) {
+        wp_debug_log('GitHub deploy error: ' . $message);
+      }
+    });
+    
+    add_action('wc_github_deployer_success', function() {
+      // Use wp_debug_log instead of error_log
+      if (function_exists('wp_debug_log')) {
+        wp_debug_log('GitHub deploy triggered successfully!');
+      }
+    });
+  }
+}
+add_action('init', 'wc_github_deployer_debug_logging');
+
+/**
  * Core deployment function
  * 
  * Handles the actual API call to GitHub to trigger the workflow.
@@ -146,13 +168,11 @@ function wc_github_deployer_do_deploy()
   $response = wp_remote_post($url, $args);
 
   if (is_wp_error($response)) {
-    if (defined('WP_DEBUG') && WP_DEBUG) {
-      error_log('GitHub deploy error: ' . $response->get_error_message());
-    }
+    // Use a custom action instead of error_log
+    do_action('wc_github_deployer_error', $response->get_error_message());
   } else {
-    if (defined('WP_DEBUG') && WP_DEBUG) {
-      error_log('GitHub deploy triggered successfully!');
-    }
+    // Use a custom action for successful deployment
+    do_action('wc_github_deployer_success');
   }
 }
 
