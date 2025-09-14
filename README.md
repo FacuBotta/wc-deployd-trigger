@@ -1,6 +1,6 @@
 # Deploy Trigger for GitHub
 
-[![Contributors](https://img.shields.io/badge/Contributors-facudev-blue.svg)](https://github.com/facudev)
+[![Contributors](https://img.shields.io/badge/Contributors-facudev-blue.svg)](https://github.com/facubotta)
 [![WordPress](https://img.shields.io/badge/WordPress-5.0+-green.svg)](https://wordpress.org)
 [![License](https://img.shields.io/badge/License-GPLv2-yellow.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 
